@@ -12,8 +12,6 @@
 
 ![](http://www.z4a.net/images/2017/01/24/QQ20170124-224434.gif)
 ![](http://www.z4a.net/images/2017/01/24/QQ20170124-224708.gif)
-![](http://www.z4a.net/images/2017/01/24/QQ20170124-231035.gif)
-![](http://www.z4a.net/images/2017/01/24/QQ20170124-232129.gif)
 ![](http://www.z4a.net/images/2017/01/24/QQ20170124-232307.gif)
 
 ***
