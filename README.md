@@ -7,6 +7,8 @@
 
 > 数据接口由[zeg](http://bbs.ngacn.cc/read.php?tid=6406100)开放提供
 
+> 目前仅提供浏览功能...
+
 
 ## Preview
 
