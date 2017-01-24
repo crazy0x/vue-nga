@@ -1,0 +1,26 @@
+{
+  "name": "vue_nga",
+  "version": "0.0.0",
+  "description": "A vue project.",
+  "private": true,
+  "keywords": [],
+  "scripts": {
+    "dev": "cooking watch -p",
+    "dist": "cooking build -p",
+    "deploy": "cooking build --no-color",
+    "test": "cooking test karma start --single-run"
+  },
+  "author": "crazy0x",
+  "license": "ISC",
+  "dependencies": {
+    "babel-polyfill": "*",
+    "muse-ui": "^2.0.0-rc.4",
+    "vue": "^2.0.1",
+    "vue-resource": "^1.0.3",
+    "vue-router": "^2.0.0",
+    "vuex": "^2.0.0"
+  },
+  "devDependencies": {
+    "cooking-vue2": "*"
+  }
+}

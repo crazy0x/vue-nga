@@ -1,2 +1,77 @@
-# vue-nga
-a mobile web app built by Vue.js
+
+# NGA APP by Vue.js
+
+> A Vue.js Porject
+
+> 声明：本APP及其代码非NGA工程团队创作或维护，所含之一切资源及内容皆不受保护，版权均归『艾泽拉斯国家地理』及北京智珠网络技术有限公司所有。
+
+> 数据接口由[zeg](http://bbs.ngacn.cc/read.php?tid=6406100)开放提供
+
+
+## Preview
+
+***
+
+## Using
+
+> Frontend
+
+- [Vue.js](https://github.com/vuejs/vue)
+- [vue-router](https://github.com/vuejs/vue-router)
+- [vue-resource](https://github.com/pagekit/vue-resource)
+- [vuex](https://github.com/vuejs/vuex)
+- [cooking](https://github.com/elemefe/cooking/)
+- [webpack](https://github.com/webpack/webpack)
+- [Muse-UI](https://github.com/museui/muse-ui)
+
+> Backend
+
+- [Springboot](https://github.com/spring-projects/spring-boot)
+
+> etc
+
+- [docker](https://www.docker.com/)
+- Nginx
+- Apache Tomcat
+
+***
+
+## Live Demo
+
+***
+
+## Installation
+
+runtime environment
+
+- Node.js 4+
+- npm 3+
+- Python 2.7.x
+
+安装 cooking
+```
+
+  npm i cooking-cli -g
+
+```
+
+- 部署server端
+- 修改./vuex/store.js接口地址，指向后端部署的URL
+- 进入项目目录
+
+```
+
+  npm install
+  cooking watch
+
+```
+- 浏览器（调试模式中选择移动设备），打开主页 127.0.0.1:8808/home
+
+***
+
+## Building
+
+```
+
+  cooking build
+```
