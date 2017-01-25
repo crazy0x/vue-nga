@@ -33,6 +33,8 @@
 > Backend
 
 - [Springboot](https://github.com/spring-projects/spring-boot)
+- [OkHttp](https://github.com/square/okhttp)
+- [Kotlin](https://github.com/JetBrains/kotlin)
 
 > etc
 
