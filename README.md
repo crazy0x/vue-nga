@@ -44,9 +44,19 @@
 
 ## Live Demo
 
+[Demo (for mobile)](http://crazy0x-vue-nga.daoapp.io/home)
+
 ***
 
 ## Installation
+
+### Docker Image:
+
+[crazy0x/vue-nga:1.1](https://hub.docker.com/r/crazy0x/vue-nga/tags/)
+
+***
+
+### Debug
 
 runtime environment
 
