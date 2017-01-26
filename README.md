@@ -46,7 +46,7 @@
 
 ## Live Demo
 
-[Demo (for mobile)](http://crazy0x-vue-nga.daoapp.io/home)
+[Demo (for mobile)](https://vue-nga.arukascloud.io/home)
 
 ***
 
