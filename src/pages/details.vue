@@ -2,10 +2,8 @@
   <div class="">
     <mu-appbar title="主题详情">
       <mu-icon-button icon="arrow_back" slot="left" @click.native="back"/>
-      <!-- <mu-icon-menu icon="favorite_border" slot="right">
-      </mu-icon-menu> -->
       主题详情
-      <mu-icon-button icon="refresh" slot="right" @click.native="refresh"/>
+      <mu-icon-button icon="refresh" slot="right" @click.native="get"/>
       <mu-icon-menu icon="more_vert" slot="right">
         <mu-menu-item title="收藏"/>
         <mu-menu-item title="提醒"/>
@@ -15,37 +13,37 @@
         <mu-menu-item title="以上功能全都没有!"/>
       </mu-icon-menu>
     </mu-appbar>
-    <mu-snackbar v-if="snackbar" message="网络异常，请检查网络连接" action="关闭" @actionClick="hideSnackbar" @close="hideSnackbar"/>
-    <div v-if="btn_page" class="fab-bottom-right">
-      <mu-raised-button :label="btn_page" mini backgroundColor="#5b5a56" labelClass="icon_refresh" @click="openBottomSheet"/>
+    <mu-snackbar v-if="ST_DETAIL_SNACKBAR" message="网络异常，请检查网络连接" action="关闭" @actionClick="hideSnackbar" @close="hideSnackbar"/>
+    <div class="fab-bottom-right">
+      <mu-raised-button :label="ST_DETAIL_PAGE + ' / ' + Math.ceil(ST_DETAIL_TOTAL / 20)" mini backgroundColor="#5b5a56" labelClass="icon_refresh" @click="openBottomSheet"/>
     </div>
-    <div v-if="btn_page" class="nav-bottom-right">
-      <mu-float-button v-if="this.page != 1" icon="navigate_before" mini backgroundColor="#5b5a56" class="demo-float-button" iconClass="icon_refresh" @click="refresh"/>
-      <mu-float-button v-if="this.page != Math.ceil(this.data.__ROWS / 20)" icon="navigate_next" mini backgroundColor="#5b5a56" class="demo-float-button" iconClass="icon_refresh" @click="next"/>
+    <div class="nav-bottom-right">
+      <mu-float-button v-if="ST_DETAIL_PAGE != 1" icon="navigate_before" mini backgroundColor="#5b5a56" class="demo-float-button" iconClass="icon_refresh" @click="before"/>
+      <mu-float-button v-if="ST_DETAIL_PAGE != Math.ceil(ST_DETAIL_TOTAL / 20)" icon="navigate_next" mini backgroundColor="#5b5a56" class="demo-float-button" iconClass="icon_refresh" @click="next"/>
     </div>
     <!-- <mu-refresh-control :refreshing="refreshing" :trigger="trigger" @refresh="refresh"/> -->
-    <div class="t_title" v-show="page == 1">
-      <span>{{this.data.__T.subject}}</span>
+    <div class="t_title" v-show="ST_DETAIL_PAGE == 1">
+      <span>{{ST_DETAIL_SUBJECT}}</span>
       <mu-divider/>
     </div>
     <mu-list>
-      <div v-for="list in lists">
+      <div v-for="list in ST_DETAIL_LIST">
         <div class="items" v-if="list.lou%2 === 0">
-          <replies :list="list" :data="data" :render="false"></replies>
+          <replies :list="list" :data="ST_DETAIL_ALL" :render="false"></replies>
         </div>
         <div v-else>
-          <replies :list="list" :data="data" :render="true"></replies>
+          <replies :list="list" :data="ST_DETAIL_ALL" :render="true"></replies>
         </div>
       </div>
     </mu-list>
-    <!-- <mu-infinite-scroll :scroller="scroller" :loading="loading" @load="load"/> -->
     <mu-bottom-sheet :open="bottomSheet" @close="closeBottomSheet">
       <mu-sub-header>跳楼</mu-sub-header>
       <mu-content-block>
-        <mu-text-field :hintText="page_hint" type="number" icon="book"  v-model="to_page"/><mu-icon-button icon="send" class="btn_go_jump" @click="goJump(to_page, 1)"/>
-        <mu-text-field :hintText="floor_hint" type="number" icon="location_city"  v-model="to_floor"/><mu-icon-button icon="send" class="btn_go_jump" @click="goJump(to_floor, 2)"/>
+        <mu-text-field :hintText="'页数（共' + Math.ceil(ST_DETAIL_TOTAL / 20) + '页）'" type="number" icon="book"  v-model="to_page"/><mu-icon-button icon="send" class="btn_go_jump" @click="goJump(to_page, 1)"/>
+        <mu-text-field :hintText="'楼层（共' + ST_DETAIL_TOTAL + '层）'" type="number" icon="location_city"  v-model="to_floor"/><mu-icon-button icon="send" class="btn_go_jump" @click="goJump(to_floor, 2)"/>
       </mu-content-block>
     </mu-bottom-sheet>
+    <mu-infinite-scroll :scroller="scroller" :loading="ST_DETAIL_LOADING"/>
     <!-- <mu-linear-progress :size="3" class="progress_d" v-show="init"><mu-linear-progress/> -->
   </div>
 </template>
@@ -57,56 +55,34 @@ import Replies from './replies.vue';
 export default {
   data() {
     return {
-      data: {
-        __T: {
-          subject: ''
-        }
-      },
-      refreshing: false,
-      init: true,
-      // loading: false,
       trigger: null,
-      // scroller: null,
-      page: 1,
-      lists: [],
-      btn_page: null,
+      scroller: null,
       bottomSheet: false,
       to_page: null,
-      to_floor: null,
-      snackbar: false,
-      page_hint: '',
-      floor_hint: '',
-      is_wifi: localStorage.getItem('is_wifi').length == 4 ? true : false
+      to_floor: null
     }
   },
   computed: {
-    ...mapGetters(['baseurl', 'baseurl_pic'])
+    ...mapGetters(['ST_BASEURL', 'ST_BASEURL_PIC', 'ST_DETAIL_ALL', 'ST_DETAIL_LIST', 'ST_DETAIL_SUBJECT', 'ST_DETAIL_LOADING', 'ST_DETAIL_SNACKBAR', 'ST_DETAIL_PAGE', 'ST_DETAIL_TOTAL'])
   },
   mounted: function() {
-    // this.scroller = window;
+    this.scroller = window;
     this.trigger = this.$el;
     this.$nextTick(this.get());
   },
   methods: {
-    showSnackbar() {
-      this.snackbar = true;
-      if (this.snackTimer) clearTimeout(this.snackTimer);
-      this.snackTimer = setTimeout(() => { this.snackbar = false }, 2000);
-    },
     hideSnackbar() {
-      this.snackbar = false;
       if (this.snackTimer) clearTimeout(this.snackTimer);
     },
     goJump(num, type) {
       if (type == 1) {
-        this.page = num;
+        this.$store.dispatch('AC_DETAIL_GET_LIST', {tid: this.$route.params.tid, page: num});
       } else {
-        this.page = Math.ceil(num / 20);
+        this.$store.dispatch('AC_DETAIL_GET_LIST', {tid: this.$route.params.tid, page: Math.ceil(num / 20)});
       }
       this.closeBottomSheet();
       this.to_page = null;
       this.to_floor = null;
-      this.get();
     },
     closeBottomSheet() {
       this.bottomSheet = false;
@@ -115,75 +91,13 @@ export default {
       this.bottomSheet = true;
     },
     next() {
-      this.page = this.page + 1;
-      this.loading = true;
-      this.get();
+      this.$store.dispatch('AC_DETAIL_GET_LIST', {tid: this.$route.params.tid, page: this.ST_DETAIL_PAGE + 1});
     },
-    refresh() {
-      this.page = 1;
-      this.refreshing = true;
-      this.get();
+    before() {
+      this.$store.dispatch('AC_DETAIL_GET_LIST', {tid: this.$route.params.tid, page: this.ST_DETAIL_PAGE - 1});
     },
     get() {
-      this.$http({
-        url: this.baseurl + '/read',
-        method: 'GET',
-        params: {
-          tid: this.$route.params.tid,
-          page: this.page
-        }
-      }).then(function(response) {
-        console.log(response.data.data);
-        this.assembleData(response);
-        this.refreshing = false;
-        this.loading = false;
-        this.init = false;
-        document.body.scrollTop = 0;
-        document.documentElement.scrollTop = 0;
-      }, function(response) {
-        this.response(response);
-      });
-    },
-    assembleData(response) {
-      this.data = response.data.data;
-      this.lists = [];
-      for (var i = 0; i < response.data.data.__R__ROWS; i++) {
-        if (response.data.data.__R[i].content) {
-          response.data.data.__R[i].content = this.replaceContent(response.data.data.__R[i].content);
-          if(response.data.data.__R[i].comment) {
-            var comments = new Array();
-            for (var c in response.data.data.__R[i].comment){
-              response.data.data.__R[i].comment[c].content = this.replaceContent(response.data.data.__R[i].comment[c].content);
-              comments.push(response.data.data.__R[i].comment[c]);
-            }
-            response.data.data.__R[i].comment = comments;
-          }
-          this.lists = this.lists.concat(response.data.data.__R[i]);
-        } else {
-          response.data.data.__R[i].content = this.replaceContent(response.data.data.__R[i].subject);
-          this.lists = this.lists.concat(response.data.data.__R[i]);
-        }
-      }
-      this.btn_page = this.page + ' / ' + Math.ceil(this.data.__ROWS / 20);
-      this.page_hint = '页数（共' + Math.ceil(this.data.__ROWS / 20) + '页）';
-      this.floor_hint = '楼层（共' + this.data.__ROWS + '层）';
-    },
-    response(response) {
-      console.log('fail' + response.status);
-      this.showSnackbar();
-      this.refreshing = false;
-      this.loading = false;
-      this.init = false;
-    },
-    replaceContent(content) {
-      if (this.is_wifi) {
-        content = content.toString().replace(new RegExp(/\[img\]\./g), "<img class=\"pics\" src=\"" + this.baseurl_pic + "http://img.ngacn.cc/attachments").replace(new RegExp(/\[\/img\]/g), "\">");
-        content = content.toString().replace(new RegExp(/\[img\]/g), "<img class=\"pics\" src=\"" + this.baseurl_pic);
-      } else {
-        content = content.toString().replace(new RegExp(/\[img\]\./g), "<img class=\"pics\" src=\"http://img.ngacn.cc/attachments").replace(new RegExp(/\[\/img\]/g), "\">");
-        content = content.toString().replace(new RegExp(/\[img\]/g), "<img class=\"pics\" src=\"");
-      }
-      return content.replace(new RegExp(/\[/g), "<").replace(new RegExp(/\]/g), ">");
+      this.$store.dispatch('AC_DETAIL_GET_LIST', {tid: this.$route.params.tid, page: 1});
     },
     back() {
       this.$router.go(-1);

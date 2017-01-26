@@ -2,7 +2,7 @@
   <div class="">
     <mu-sub-header>{{title}}</mu-sub-header>
     <mu-row gutter v-for="items in topics">
-      <mu-col width="33" v-for="item in items" @click.native="open(item)">
+      <mu-col class="c_menus" width="33" v-for="item in items" @click.native="open(item)">
         <div class="d_menus">
           <img class="m_icons" :src="item.icon" alt="People">
           <br class="m_text">{{item.name}}</br>
@@ -26,6 +26,8 @@ export default {
         open(item) {
             localStorage.setItem('curr_t', item.topic);
             localStorage.setItem('curr_t_info', JSON.stringify(item));
+            this.$store.commit('MT_TOPIC_MOD_REFRESHING', true);
+            this.$store.commit('MT_TOPIC_CLEAR_LIST');
             this.$router.push('/topics/' + item.topic + '?name=' + item.name);
         }
     }
@@ -43,6 +45,11 @@ export default {
   height: 100%;
   width: 100%;
   text-align: center;
+  padding: 8px;
+}
+
+.c_menus {
+  width: 33%;
   padding: 8px;
 }
 </style>

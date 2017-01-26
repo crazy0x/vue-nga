@@ -43,7 +43,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['baseurl_pic'])
+    ...mapGetters(['ST_BASEURL_PIC'])
   },
   props: ['list', 'data', 'render'],
   methods: {
@@ -59,9 +59,9 @@ export default {
     },
     getAvatar(url) {
       if (this.is_wifi && url instanceof Object) {
-        this.pic = url[0].toString().replace('http://', this.baseurl_pic + 'http://');
+        this.pic = url[0].toString().replace('http://', this.ST_BASEURL_PIC + 'http://');
       } else if(this.is_wifi && url && url.length.toString() > 0) {
-        this.pic = url.toString().replace('http://', this.baseurl_pic + 'http://');
+        this.pic = url.toString().replace('http://', this.ST_BASEURL_PIC + 'http://');
       } else {
         this.pic = 'http://pic.qiniu.anfensi.com/2016-09-28/57eb6b1dedd0f.png';
       }

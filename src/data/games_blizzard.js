@@ -1,7 +1,7 @@
 const data = [
   [
     {
-      name: '魔兽世界议事厅',
+      name: '议事厅',
       icon: require('../assets/wow.png'),
       topic: '7'
     },
