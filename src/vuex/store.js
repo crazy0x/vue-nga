@@ -99,7 +99,6 @@ const store = new Vuex.Store({
     actions: {
         [types.AC_TOPIC_GET_LIST]({commit, state}, para) {
             state.topic_loading = true;
-            console.log(para);
             if (state.topic_list.length === 0 || para.page > 1 || state.topic_refreshing) {
                 Vue.http({
                     url: state.baseurl + '/thread',
