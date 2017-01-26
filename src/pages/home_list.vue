@@ -24,6 +24,7 @@ export default {
     props: ['title', 'topics'],
     methods: {
         open(item) {
+          console.log(item);
             localStorage.setItem('curr_t', item.topic);
             localStorage.setItem('curr_t_info', JSON.stringify(item));
             this.$store.commit('MT_TOPIC_MOD_REFRESHING', true);

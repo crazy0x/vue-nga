@@ -54,7 +54,7 @@
 
 ### Docker Image:
 
-[crazy0x/vue-nga:1.1](https://hub.docker.com/r/crazy0x/vue-nga/tags/)
+[crazy0x/vue-nga:1.4](https://hub.docker.com/r/crazy0x/vue-nga/tags/)
 
 ***
 

@@ -63,7 +63,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['ST_BASEURL', 'ST_BASEURL_PIC', 'ST_DETAIL_ALL', 'ST_DETAIL_LIST', 'ST_DETAIL_SUBJECT', 'ST_DETAIL_LOADING', 'ST_DETAIL_SNACKBAR', 'ST_DETAIL_PAGE', 'ST_DETAIL_TOTAL'])
+    ...mapGetters(['ST_DETAIL_ALL', 'ST_DETAIL_LIST', 'ST_DETAIL_SUBJECT', 'ST_DETAIL_LOADING', 'ST_DETAIL_SNACKBAR', 'ST_DETAIL_PAGE', 'ST_DETAIL_TOTAL'])
   },
   mounted: function() {
     this.scroller = window;

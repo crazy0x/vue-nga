@@ -1,5 +1,3 @@
-export const BASEURL = 'http://127.0.0.1:8088/nga';
-export const BASEURL_PIC = 'http://127.0.0.1:8088/nga/pic?url=';
 // actions types
 export const AC_TOPIC_GET_LIST = 'AC_TOPIC_GET_LIST';
 export const AC_DETAIL_GET_LIST = 'AC_DETAIL_GET_LIST';
