@@ -10,10 +10,10 @@ Vue.use(VueResource);
 // 创建一个对象来保存应用启动时的初始状态
 const store = new Vuex.Store({
     state: {
-        // baseurl: 'http://127.0.0.1:8088/nga',
-        // baseurl_pic: 'http://127.0.0.1:8088/nga/pic?url=',
-        baseurl: '../nga/nga',
-        baseurl_pic: '../nga/nga/pic?url=',
+        baseurl: 'http://127.0.0.1:8088/nga',
+        baseurl_pic: 'http://127.0.0.1:8088/nga/pic?url=',
+        // baseurl: '../nga/nga',
+        // baseurl_pic: '../nga/nga/pic?url=',
         topic_list: [],
         topic_refreshing: false,
         topic_loading: false,
@@ -99,6 +99,7 @@ const store = new Vuex.Store({
     actions: {
         [types.AC_TOPIC_GET_LIST]({commit, state}, para) {
             state.topic_loading = true;
+            console.log(para);
             if (state.topic_list.length === 0 || para.page > 1 || state.topic_refreshing) {
                 Vue.http({
                     url: state.baseurl + '/thread',

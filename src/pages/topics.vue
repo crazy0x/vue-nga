@@ -64,13 +64,14 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['ST_BASEURL', 'ST_TOPIC_LIST', 'ST_TOPIC_PAGE', 'ST_TOPIC_SNACKBAR', 'ST_TOPIC_LOADING'])
+    ...mapGetters(['ST_BASEURL', 'ST_TOPIC_LIST', 'ST_TOPIC_PAGE', 'ST_TOPIC_SNACKBAR', 'ST_TOPIC_LOADING', 'ST_TOPIC_REFRESHING'])
   },
   mounted: function() {
     this.scroller = window;
     this.trigger = this.$el;
     this.ST_TOPIC_PAGE = 1;
-    this.$nextTick(this.get());
+    if(this.ST_TOPIC_REFRESHING)
+      this.$nextTick(this.get());
     this.curr_t_info = JSON.parse(localStorage.getItem('curr_t_info'));
     if (localStorage.getItem('my_favs')) {
       this.my_favs = JSON.parse(localStorage.getItem('my_favs'));
