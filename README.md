@@ -56,6 +56,13 @@
 
 [crazy0x/vue-nga:1.4](https://hub.docker.com/r/crazy0x/vue-nga/tags/)
 
+1. sing up Arukas(https://app.arukas.io/)
+2. configuration as picture, app name and endpoint(domain) can fill whatever you want
+3. submit and waiting for deployment, open https://yourdomain.arukascloud.io/home
+
+![](http://www.z4a.net/images/2017/01/26/QQ20170126-0950072x.png)
+
+
 ***
 
 ### Debug
@@ -66,16 +73,16 @@ runtime environment
 - npm 3+
 - Python 2.7.x
 
-安装 cooking
+install cooking
 ```
 
   npm i cooking-cli -g
 
 ```
 
-- 部署server端
-- 修改./vuex/store.js接口地址，指向后端部署的URL
-- 进入项目目录
+- deploy nga-data-delegate
+- modify baseurl (in ./vuex/store.js) to local adress (default localhost:8888)
+- start debugging
 
 ```
 
@@ -83,7 +90,7 @@ runtime environment
   cooking watch
 
 ```
-- 浏览器（调试模式中选择移动设备），打开主页 127.0.0.1:8808/home
+- open localhost:8808/home
 
 ***
 
