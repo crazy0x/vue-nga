@@ -54,7 +54,7 @@
 
 ### Docker Image:
 
-[crazy0x/vue-nga:1.4](https://hub.docker.com/r/crazy0x/vue-nga/tags/)
+[Get newest image here.](https://hub.docker.com/r/crazy0x/vue-nga/tags/)
 
 1. sing up Arukas(https://app.arukas.io/)
 2. configuration as picture, app name and endpoint(domain) can fill whatever you want
