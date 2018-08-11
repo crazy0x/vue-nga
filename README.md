@@ -46,7 +46,7 @@
 
 ## Live Demo
 
-[Demo (for mobile)](https://vue-nga.arukascloud.io/home)
+[Demo (for mobile)](http://45.116.13.205/home)
 
 ***
 
